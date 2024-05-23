@@ -19,55 +19,55 @@ const PROFILE = [
 {
     name: '홍길동',
     email: 'kimyoujin0821@gmail.com',
-    image: require('./images/profile1.png'),
+    image: require('../images/profile1.png'),
     code: '#234FCR',
 },
 ];
 
 const FRIENDS_LIST = [
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '손보석',
     user_code: '#02BS12',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '김유진',
     user_code: '#14YJ04',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '구본윤',
     user_code: '#07BY24',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '박민서',
     user_code: '#71MS88',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '김용진',
     user_code: '#02YJ16',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '김용진',
     user_code: '#02YJ17',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '김용진',
     user_code: '#02YJ18',
 },
 {
-    user_image: require('./images/profile1.png'),
+    user_image: require('../images/profile1.png'),
     user_name: '김용진',
     user_code: '#02YJ19',
 },
 ];
 
-function Add_Friends_Screen() {
+const  Add_Friends_Screen = ({navigation}:any) => {
 const [searchFriendsValue, setSearchFriendsValue] = useState('');
 const [searchGroupValue, setSearchGroupValue] = useState('');
 const [message, setMessage] = useState('');
@@ -106,9 +106,7 @@ const showAlert = (message: React.SetStateAction<string>) => {
 return (
     <SafeAreaView style={styles.container}>
     <Pressable
-        onPressIn={() => {
-        console.log('pressed back');
-        }}
+        onPressIn={() => navigation.navigate('Together')}
         style={{
         backgroundColor: 'white',
         width: wp(5),
@@ -116,7 +114,7 @@ return (
         marginTop: hp(3),
         position: 'absolute',
         }}>
-        <Image source={require('./icons/back_icon.png')} />
+        <Image source={require('../icons/back_icon.png')} />
     </Pressable>
     <View style={{flexDirection: 'row'}}>
         <View style={styles.profile_image}>
@@ -166,7 +164,7 @@ return (
             marginTop: hp(1.4),
             marginLeft: wp(80),
         }}>
-        <Image source={require('./icons/search_icon.png')} />
+        <Image source={require('../icons/search_icon.png')} />
         </Pressable>
     </View>
     <View style={{marginTop: hp(1.8)}}>
@@ -188,13 +186,13 @@ return (
             marginTop: hp(1.4),
             marginLeft: wp(80),
         }}>
-        <Image source={require('./icons/search_icon.png')} />
+        <Image source={require('../icons/search_icon.png')} />
         </Pressable>
     </View>
     <View>
         {isVisible && (
         <View style={styles.alert_style} >
-            <Image source={require('./icons/verified_checkmark_icon.png')} />
+            <Image source={require('../icons/verified_checkmark_icon.png')} />
             <Text 
             style={{color: 'black', marginLeft: wp(3), marginBottom: wp(2)}}>
             {message}
@@ -208,6 +206,7 @@ return (
 
 const styles = StyleSheet.create({
 container: {
+    marginTop: wp(5),
     backgroundColor: 'white',
     height: hp(200),
 },

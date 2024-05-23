@@ -94,7 +94,6 @@ const USER_MISSION = [
 },
 ];
 
-// 타입 정의
 type MissionClickState = {
 [key: string]: boolean;
 };
@@ -160,6 +159,7 @@ return (
                     styles2.click_button,
                 ]}
             >
+                {/* 계획완료버튼 눌렀을때  */}
                 {missionClickState[user_item.USER_MISSION_id.toString()] && (
                 <View
                     style={{

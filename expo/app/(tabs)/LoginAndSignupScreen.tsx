@@ -28,7 +28,7 @@ function LoginAndSignupScreen({ navigation }: any) {
 const styles2 = StyleSheet.create({
   LoginAndSignuptitle: {
     color: '#000000',
-    fontFamily: 'ArialMT',
+    //fontFamily: 'ArialMT',
     fontSize: 35,
     marginBottom: 20,
   },

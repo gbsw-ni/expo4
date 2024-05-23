@@ -1,8 +1,10 @@
 import React from 'react';
 import { SetStateAction, useState } from 'react';
 import { TextInput, Pressable, Text, View, StyleSheet, Keyboard } from 'react-native';
+import { useDiary } from './DiaryContent';
 
 const DiaryMemo = ({ navigation }: any) => {
+const {addDiaryEntry} = useDiary();
 //const [title, setTitle] = useState('');
 const [content, setContent] = useState('');
 const [rating, setRating] = useState(0);
@@ -14,6 +16,9 @@ const changeRating = (newRating: SetStateAction<number>) => {
 const clickSave = () => {
     console.log('내용:', content);
     console.log('별점:', rating);
+
+    //새로운 일기 항목 추가
+    addDiaryEntry({content, rating});
     // 저장 로직을 구현해야됨. , 서버에 데이터를 보내거나 로컬 스토리지에 저장.
     Keyboard.dismiss();
     navigation.navigate('Diary')
@@ -31,6 +36,7 @@ return (
     />
     <Text style={styles.textCounter}>{content.length}/300</Text>
     <View style={styles.stars}>
+        {/*별점*/}
         {[1, 2, 3, 4, 5].map((index) => (
         <Pressable key={index} onPress={() => changeRating(index)}>
             <Text style={index <= rating ? styles.starFilled : styles.starEmpty}>★</Text>

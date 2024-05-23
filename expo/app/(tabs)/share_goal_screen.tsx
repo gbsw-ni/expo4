@@ -14,7 +14,7 @@ import {
 } from 'react-native-responsive-screen';
 import * as ImagePicker from 'expo-image-picker';
 
-function Share_Goal_Screen() {
+const Share_Goal_Screen = ({navigation}:any) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const options = ['inside', 'outside'];
 
@@ -52,9 +52,7 @@ function Share_Goal_Screen() {
         <SafeAreaView>
             {/* 돌아가기 버튼 */}
             <Pressable
-                onPressIn={() => {
-                    console.log('pressed back');
-                }}
+                onPressIn={() => navigation.navigate('Together')}
                 style={{
                     backgroundColor: 'white',
                     width: wp(5),

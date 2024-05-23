@@ -1,44 +1,56 @@
 import React from 'react';
-import { Image, StyleSheet, View, Pressable, Text, FlatList } from 'react-native';
+import { Image, StyleSheet, View, Pressable, Text, ScrollView } from 'react-native';
+
+import { useDiary } from './DiaryContent';
+//import DiaryCheck from './DiaryCheck'
 
 const check = require('../icons/check.png');
 
 const Diary = ({ navigation }: any) => {
 
-    const DiaryButton = [1,2,3,4,5];
+    const { diaryEntries } = useDiary();
 
-    const renderDiaryButton = ({item}: {item: number}) => {
-        <Pressable style={styles.checkBox} onPress={() => console.log('일기확인', item)}>
-        <Image style={styles.check1} source={check} />
+    const renderDiaryButton = (entry: any, index: number) => (
+        <Pressable 
+            style={styles.checkBox} 
+            key={index} 
+            onPress={() => navigation.navigate('DiaryCheck', {entry})}>
+            <Image style={styles.check1} source={check} />
         </Pressable>
-    }
+    );
     
-    const splitIntoRows = (entries: number[], itemPerRow: number) => {
+    const renderDiaryButtons = () => {
         const rows = [];
-        for( let i = 0; i < entries.length; i += itemPerRow) {
-            rows.push(entries.slice(i,i+itemPerRow));
+        for(let i = 0;i < diaryEntries.length; i += 4){
+            const rowEntries = diaryEntries.slice(i, i+4);
+            rows.push(
+                <View key={i} style={styles.row}>
+                    {rowEntries.map((entry, index) => (
+                        <View key={index} style={styles.checkBoxContainer}>
+                        {renderDiaryButton(entry, index)}
+                    </View>
+                    ))}
+                </View>
+            );
         }
         return rows;
     };
 
-    const diary = splitIntoRows(DiaryButton,4);
     
 return (
     <View style={styles.container}>
     <View style={styles.header}>
         <Pressable onPress={() => navigation.navigate('PreviousDate')}>
-        <Image source={require('../icons/right-arrow.png')} style={styles.navIcon} />
+            <Image source={require('../icons/right-arrow.png')} style={styles.navIcon} />
         </Pressable>
         <Text style={styles.dateText}>4월</Text>
         <Pressable onPress={() => navigation.navigate('NextDate')}>
-        <Image source={require('../icons/left-arrow.png')} style={styles.navIcon} />
+            <Image source={require('../icons/left-arrow.png')} style={styles.navIcon} />
         </Pressable>
     </View>
-    <FlatList
-            data={DiaryButton}
-            keyExtractor={(item, index) => index.toString()}
-            contentContainerStyle={styles.buttonContainer}
-        />
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {renderDiaryButtons()}
+    </ScrollView>
     <View style={styles.centeredTextContainer}>
         <Text style={styles.MainText}>클릭 시 그날의 일기가 확인 됩니다!</Text>
     </View>
@@ -54,8 +66,19 @@ container: {
     alignItems: 'center',
     flex: 1,
 },
+scrollViewContent: {
+    alignItems: 'flex-start',
+},
+checkBoxContainer: {
+    width: 90, // Adjust the width as needed
+    padding: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
 row: {
-
+    flexDirection: 'row',
+    justifyContent: 'center',
+    //marginBottom: 1,
 },
 header: {
     flexDirection: 'row',
@@ -91,12 +114,12 @@ buttonContainer: {
 checkBox: {
     width: 79,
     height: 80,
-    marginTop: 70,
+    marginTop: 30,
     backgroundColor: '#0066FF',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 6,
+    marginHorizontal: 20,
 },
 check1: {
     width: 65,
@@ -112,8 +135,8 @@ actionButton: {
     position: 'absolute',
     bottom: 20,
     backgroundColor: '#0066FF',
-    width: 90,
-    height: 90,
+    width: 70,
+    height: 70,
     borderRadius: 45,
     justifyContent: 'center',
     alignItems: 'center',
