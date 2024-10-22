@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "237ccdd1-0762-4b3d-a967-4412f1f01208"
+      }
+    },
+    "android": {
+      "package": "com.minseo07.capston_naeil"
+    }
+  }
+}

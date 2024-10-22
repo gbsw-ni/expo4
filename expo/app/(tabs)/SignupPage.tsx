@@ -1,41 +1,44 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import api from '../api/api';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../types';
+import { useNavigation } from '@react-navigation/native';
 
-function SignupPage() {
+const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [Repassword, setRePassword] = useState('');
+    const [rePassword, setRePassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState(''); // 성공 메시지 상태 추가
 
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const navigation = useNavigation();
 
     function validateForm() {
         return email.length > 0 && password.length > 0 && name.length > 0;
     }
 
-    async function ClickSignup() {
+    async function clickSignup() {
+        setErrorMessage(''); // 이전 에러 메시지 초기화
+        setSuccessMessage(''); // 이전 성공 메시지 초기화
+
         if (!validateForm()) {
             setErrorMessage('모든 칸을 입력 해주세요.');
-            return false;
+            return;
         }
 
-        if (password !== Repassword) {
+        if (password !== rePassword) {
             setErrorMessage('비밀번호가 일치하지 않습니다.');
-            return false;
+            return;
         }
 
         try {
-            let response = await api.post('/user/signup', {
-                username: name,
+            const response = await api.post('/user/signup', {
+                name: name,
                 email: email,
                 password: password,
             });
             if (response.data.success) {
-                navigation.navigate('Login');
+                setSuccessMessage('회원가입에 성공했습니다.'); // 성공 메시지 설정
             } else {
                 setErrorMessage(
                     response.data.message
@@ -44,49 +47,58 @@ function SignupPage() {
                 );
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
             setErrorMessage('서버에 연결할 수 없습니다.');
         }
     }
 
     return (
-        <View style={styles4.container}>
-            <Image style={{ height: 230, width: 220 }} source={require('../path/to/your/logo.png')} />
+        <View style={styles.container}>
+            <Image style={{ height: 230, width: 220 }} source={require('../icons/logo1.png')} />
             <TextInput
                 onChangeText={text => setName(text)}
                 value={name}
                 placeholder="이름"
-                style={styles4.input}
+                style={styles.input}
             />
             <TextInput
                 onChangeText={text => setEmail(text)}
                 value={email}
                 placeholder="이메일 (ex. securite@gmail.com)"
-                style={styles4.input}
+                style={styles.input}
             />
             <TextInput
                 onChangeText={text => setPassword(text)}
                 value={password}
                 placeholder="비밀번호"
-                style={styles4.input}
+                style={styles.input}
                 secureTextEntry={true}
             />
             <TextInput
                 onChangeText={text => setRePassword(text)}
-                value={Repassword}
+                value={rePassword}
                 placeholder="비밀번호 확인"
-                style={styles4.input}
+                style={styles.input}
                 secureTextEntry={true}
             />
-            <TouchableOpacity onPress={ClickSignup} style={styles4.button}>
-                <Text style={styles4.buttonText}>회원가입</Text>
+            <TouchableOpacity onPress={clickSignup} style={styles.button}>
+                <Text style={styles.buttonText}>회원가입</Text>
             </TouchableOpacity>
-            {errorMessage ? <Text style={styles4.error}>{errorMessage}</Text> : null}
+            {errorMessage ? (
+                <View>
+                    <Text style={styles.error}>{errorMessage}</Text>
+                </View>
+            ) : null}
+            {successMessage ? (
+                <View>
+                    <Text style={styles.success}>{successMessage}</Text>
+                </View>
+            ) : null}
         </View>
     );
 }
 
-const styles4 = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -123,6 +135,10 @@ const styles4 = StyleSheet.create({
     },
     error: {
         color: 'red',
+        marginTop: 10,
+    },
+    success: { // 성공 메시지 스타일 추가
+        color: 'green',
         marginTop: 10,
     },
 });

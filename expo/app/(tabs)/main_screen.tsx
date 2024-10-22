@@ -11,7 +11,7 @@ const PROFILE = [
   //inside 목표 추천 리스트
   {
     name: '홍길동',
-    email: 'kimyoujin0821@gmail.com'
+    email: 'naeil00700@gmail.com'
   }
 ]
 

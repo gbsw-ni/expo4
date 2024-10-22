@@ -129,7 +129,7 @@ return (
         style={{
         width: wp(85),
         marginHorizontal: wp(7.5),
-        marginBottom: hp(27),
+        marginBottom: hp(15),
         }}
     >
         {USER_MISSION.map((user_item) => (
@@ -209,7 +209,7 @@ return (
         borderRadius: wp(9),
         backgroundColor: '#0066FF',
         bottom: 0,
-        marginBottom: hp(21),
+        marginBottom: hp(10),
         marginLeft: wp(75),
         elevation: 7,
         shadowColor: '#0066FF',
@@ -224,7 +224,7 @@ return (
         style={{ width: wp(12), height: wp(12) }}
         />
     </Pressable>
-    <Pressable
+    {/* <Pressable
         style={{
         position: 'absolute',
         width: wp(40),
@@ -252,7 +252,7 @@ return (
         >
         나의 생활 그래프보기
         </Text>
-    </Pressable>
+    </Pressable> */}
     </SafeAreaView>
 );
 }

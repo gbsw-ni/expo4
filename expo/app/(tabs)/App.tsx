@@ -8,6 +8,7 @@ import Start from './start';
 import LoginAndSignup from './LoginAndSignupScreen';
 //import SignupPage from './SignupPage';
 import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
 import TapNavigation from './navigation/tapNavigation'
 import Chart_Goal_Screen from './chart_goal_screen';
 import Create_Goal_Screen from './create_goal_screen';
@@ -26,8 +27,9 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Start" component={Start} options={{ headerShown: false }}/>
         <Stack.Screen name="LoginAndSignup" component={LoginAndSignup} options={{ headerShown: false }}/>
-        {/*<Stack.Screen name="Signup" component={SignupPage} /> */}
+        
         <Stack.Screen name='Login' component={LoginPage} options={{ headerShown: false }}/>
+        <Stack.Screen name="Signup" component={SignupPage} options={{ headerShown: false }}/> 
         <Stack.Screen name="Tap" component={TapNavigation} options={{ headerShown: false }}/>
         {/*<Stack.Screen name='Home' component={Main_Screen} />*/}
         <Stack.Screen name="Chart" component={Chart_Goal_Screen} options={{ headerShown: false }}/>
@@ -46,4 +48,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
