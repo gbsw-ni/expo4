@@ -20,5 +20,11 @@
     "react-native-image-picker": "^7.1.2",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-responsive-screen": "^1.4.2"
+  },
+  "name": "Capston_Naeil",
+  "version": "1.0.0",
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   }
 }

@@ -8,7 +8,7 @@ let level = 0
 let progress_gauge = 45 * 5 //max = 64*5;
 
 const PROFILE = [
-  //inside 목표 추천 리스트
+
   {
     name: '홍길동',
     email: 'naeil00700@gmail.com'
